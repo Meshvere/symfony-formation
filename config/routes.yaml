@@ -3,3 +3,13 @@ homepage:
   methods: [GET]
   controller: App\Controller\HomepageController
   host: 127.0.0.1
+contact:
+  path: /contact
+  methods: [GET]
+  controller: App\Controller\ContactController:index
+  host: 127.0.0.1
+contact_json:
+  path: /contact.json
+  methods: [GET]
+  controller: App\Controller\ContactController:asJson
+  host: 127.0.0.1

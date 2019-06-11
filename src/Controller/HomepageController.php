@@ -10,8 +10,6 @@ final class HomepageController extends AbstractController
     public function __invoke(Request $request): Response
     {
         $contactInformation = $this->getParameter('app.contact_information');
-        return $this->render('homepage.html.twig', [
-            'contactInformation' => $contactInformation,
-        ]);
+        return $this->render('homepage.html.twig');
     }
 }
