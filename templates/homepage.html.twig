@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="section" id="index-banner">
+        <div class="container">
+            <h1 class="header center orange-text">
+                Bienvenue à la formation Symfony
+            </h1>
+            <div class="row">
+                <pre class="offset-m2 col m8">
+                    <code class="yaml">
+# config/routes.yaml
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        template: homepage.html.twig
+                    </code>
+                </pre>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <h2 class="header center orange-text">Prochaines étapes ?</h2>
+                    <ul class="offset-m2 col m8">
+                        <li>Configurer des routes en XML</li>
+                        <li>Configurer des routes en YAML</li>
+                        <li>Configurer des routes en annotation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
