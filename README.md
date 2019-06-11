@@ -1,1 +1,1 @@
-# symfony-formation
+symfony
