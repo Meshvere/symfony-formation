@@ -1,7 +1,5 @@
 homepage:
   path: /
   methods: [GET]
-  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+  controller: App\Controller\HomepageController
   host: 127.0.0.1
-  defaults:
-    template: homepage.html.twig

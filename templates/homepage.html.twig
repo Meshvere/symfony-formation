@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
     <div class="section" id="index-banner">
         <div class="container">
@@ -7,29 +6,41 @@
                 Bienvenue à la formation Symfony
             </h1>
             <div class="row">
-                <pre class="offset-m2 col m8">
-                    <code class="yaml">
-# config/routes.yaml
-homepage:
-    path: /
-    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
-    defaults:
-        template: homepage.html.twig
-                    </code>
-                </pre>
+                {{ dump(contactInformation) }}
             </div>
-        </div>
-        <div class="container">
+            <div class="row center">
+                <a href="{{ path('_profiler_open_file', { file: 'src/Controller/HomepageController.php'}) }}" class="btn-large orange" target="_blank">
+                    Voir <em>HomepageController</em>
+                </a>
+                <a href="{{ path('_profiler_open_file', { file: 'templates/homepage.html.twig'}) }}" class="btn-large orange" target="_blank">
+                    Voir <em>homepage.html.twig</em>
+                </a>
+            </div>
             <div class="row">
-                <div class="col m12">
-                    <h2 class="header center orange-text">Prochaines étapes ?</h2>
-                    <ul class="offset-m2 col m8">
-                        <li>Configurer des routes en XML</li>
-                        <li>Configurer des routes en YAML</li>
-                        <li>Configurer des routes en annotation</li>
+                <div class="col s12 teal lighten-2 z-depth-3">
+                    <ul>
+                        <li>
+                            Créer les contrôleurs pour page one & two
+                            <blockquote>
+                                bin/console make:controller
+                            </blockquote>
+                        </li>
+                        <li>Déplacer le footer dans un partial Twig</li>
+                        <li>Rendre la variable <span class="black white-text" style="padding: 0 5px">contactInformation</span> globale dans Twig</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 {% endblock content %}
+{% block footer %}
+    <footer class="page-footer red" style="padding-bottom: 20px">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <span class="white-text">{{ contactInformation.organization }} / {{ contactInformation.phone }}</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
