@@ -47,6 +47,13 @@ class Product
      */
     private $enable = true;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TaxRate")
+     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer", options={"default":-1})
+     */
+    private $taxRate = -1;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,5 +117,17 @@ class Product
     public function setEnable(bool $enable): void
     {
         $this->enable = $enable;
+    }
+
+    public function getTaxRate(): ?TaxRate
+    {
+        return $this->taxRate;
+    }
+
+    public function setTaxRate(?TaxRate $taxRate): self
+    {
+        $this->taxRate = $taxRate;
+
+        return $this;
     }
 }
