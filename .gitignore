@@ -49,4 +49,6 @@
 
 /.env.local
 /connectdb.txt
-/var/log/dev.log
+\.idea/
+
+var/
