@@ -49,8 +49,7 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TaxRate")
-     * @ORM\JoinColumn(nullable=false)
-     * @ORM\Column(type="integer", options={"default":-1})
+     * @ORM\JoinColumn(nullable=false, name="tax_rate", referencedColumnName="id")
      */
     private $taxRate = -1;
 
@@ -129,5 +128,9 @@ class Product
         $this->taxRate = $taxRate;
 
         return $this;
+    }
+
+    public function getPriceTtc(): ?int {
+        return $this->price+$this->price*($this->getTaxRate()->getRate()/100);
     }
 }

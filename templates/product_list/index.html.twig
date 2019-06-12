@@ -16,7 +16,8 @@
         <tr>
             <th>Nom</th>
             <th>Description</th>
-            <th>Prix</th>
+            <th>Prix HT</th>
+            <th>Prix TTC</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
                 <td>{{ product.label }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product_price(product.price)|localizedcurrency('EUR') }}</td>
+                <td>{{ product_price(product.priceTtc)|localizedcurrency('EUR') }}</td>
             </tr>
         {% endfor %}
         </tbody>
