@@ -18,3 +18,25 @@ products:
   methods: [GET]
   controller: App\Controller\ProductListController:index
   host: 127.0.0.1
+tax_rate_new:
+  path: /taxe
+  methods: [GET,POST]
+  controller: App\Controller\TaxRateTypeController:create
+  host: 127.0.0.1
+tax_rate_edit:
+  path: /taxe/{id}
+  methods: [GET,PATCH]
+  controller: App\Controller\TaxRateTypeController:edit
+  host: 127.0.0.1
+  requirements:
+    id: '\d+'
+product_new:
+  path: /produit
+  methods: [GET,POST]
+  controller: App\Controller\ProductTypeController:create
+  host: 127.0.0.1
+product_edit:
+  path: /produit/{id}
+  methods: [GET,PATCH]
+  controller: App\Controller\ProductTypeController:edit
+  host: 127.0.0.1

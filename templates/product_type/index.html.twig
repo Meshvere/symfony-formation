@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    {{ form_widget(form) }}
+
+    <input type="submit" />
+    {{ form_end(form) }}
+{% endblock %}

@@ -27,10 +27,12 @@
                 <td>{{ product.description }}</td>
                 <td>{{ product_price(product.price)|localizedcurrency('EUR') }}</td>
                 <td>{{ product_price(product.priceTtc)|localizedcurrency('EUR') }}</td>
+                <td><a href="{{ path('product_edit', [product.id]) }}">Ajouter un produit</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     <p>Nombre de produit(s) : {{ nb_products }}</p>
+    <a href="{{ path('product_new') }}">Ajouter un produit</a>
 </div>
 {% endblock %}

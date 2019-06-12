@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Taux de TVA{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.label) }}
+        </div>
+        <div class="col" id="some-custom-id">
+            {{ form_row(form.rate) }}
+        </div>
+    </div>
+    <input type="submit" />
+    {{ form_end(form) }}
+{% endblock %}

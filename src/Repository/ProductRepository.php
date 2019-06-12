@@ -48,15 +48,6 @@ class ProductRepository extends ServiceEntityRepository
     }
     */
 
-    public function findNotDeleted()
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.deletedAt IS NOT NULL')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
     public function findDisplayable()
     {
         return $this->findBy(['deletedAt'=>null, 'enable'=>true]);

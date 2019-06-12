@@ -51,7 +51,7 @@ class Product
      * @ORM\ManyToOne(targetEntity="App\Entity\TaxRate")
      * @ORM\JoinColumn(nullable=false, name="tax_rate", referencedColumnName="id")
      */
-    private $taxRate = -1;
+    private $taxRate;
 
     public function getId(): ?int
     {
@@ -131,6 +131,6 @@ class Product
     }
 
     public function getPriceTtc(): ?int {
-        return $this->price+$this->price*($this->getTaxRate()->getRate()/100);
+        return $this->price+$this->price*($this->getTaxRate()->getRate());
     }
 }
