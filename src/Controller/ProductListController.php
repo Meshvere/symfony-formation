@@ -12,10 +12,11 @@ class ProductListController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $productRepository = $entityManager->getRepository(Product::class);
 
-        $products = $productRepository->findDisplayable();//findNotDeleted();
+        $products = $productRepository->findDisplayable();
+        $nbPoducts = $productRepository->countDisplayable();
 
         return $this->render('product_list/index.html.twig', [
-            'controller_name' => 'ProductListController', 'products'=>$products
+            'controller_name' => 'ProductListController', 'products'=>$products, 'nb_products' => $nbPoducts
         ]);
     }
 }

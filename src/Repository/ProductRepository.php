@@ -71,4 +71,9 @@ class ProductRepository extends ServiceEntityRepository
         $product->setDeletedAt(new \DateTime());
         $this->getEntityManager()->flush($product);
     }
+
+    public function countDisplayable()
+    {
+        return $this->count(['deletedAt'=>null, 'enable'=>true]);
+    }
 }
