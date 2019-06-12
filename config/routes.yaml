@@ -13,3 +13,8 @@ contact_json:
   methods: [GET]
   controller: App\Controller\ContactController:asJson
   host: 127.0.0.1
+products:
+  path: /produits
+  methods: [GET]
+  controller: App\Controller\ProductListController:index
+  host: 127.0.0.1

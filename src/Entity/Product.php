@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,16 @@ class Product
      * @ORM\Column(type="integer")
      */
     private $price;
+
+    /**
+     * @ORM\Column(type="datetime", name="deleted_at", nullable=true)
+     */
+    private $deletedAt;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":1})
+     */
+    private $enable = true;
 
     public function getId(): ?int
     {
@@ -79,5 +90,25 @@ class Product
     public function setPrice(int $price): void
     {
         $this->price = $price;
+    }
+
+    public function getDeletedAt(): ?DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?DateTimeInterface $deletedAt): void
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    public function getEnable(): ?bool
+    {
+        return $this->enable;
+    }
+
+    public function setEnable(bool $enable): void
+    {
+        $this->enable = $enable;
     }
 }

@@ -47,4 +47,28 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findNotDeleted()
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.deletedAt IS NOT NULL')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findDisplayable()
+    {
+        return $this->findBy(['deletedAt'=>null, 'enable'=>true]);
+    }
+
+    public function add(Product $product): void {
+        $this->getEntityManager()->persist($product);
+        $this->getEntityManager()->flush($product);
+    }
+
+    public function delete(Product $product): void {
+        $product->setDeletedAt(new \DateTime());
+        $this->getEntityManager()->flush($product);
+    }
 }
