@@ -5,7 +5,6 @@ namespace App\Csv;
 
 
 use App\Entity\Product;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Webmozart\Assert\Assert;
 
