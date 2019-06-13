@@ -1,11 +1,13 @@
 <?php
 namespace App\Command;
+use App\Csv\ProductCsvGenerator;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 class TryCommand extends ContainerAwareCommand
 {
     protected static $defaultName = 'app:try';
@@ -17,6 +19,19 @@ class TryCommand extends ContainerAwareCommand
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $generator = $this->getContainer()->get('app.csv.product');
+
+        $entityManager = $this->getContainer()->get('doctrine.orm.entity_manager');
+        /** @var ProductRepository $productRepository */
+        $productRepository = $entityManager->getRepository(Product::class);
+
+        $products = $productRepository->findDisplayable();
+
+        $csv = $generator->generate($products);
+
+        dump($csv);
+
+        return;
 //        $product = new Product();
 //        $product->setLabel('Mon produit 2');
 //        $product->setDescription('Mon produit 2');
