@@ -3,39 +3,50 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ApiController extends AbstractController
 {
-    public const PRODUCTS_PER_PAGE = 5;
+    public const PRODUCTS_PER_PAGE = 2;
+
+    /** @var ProductRepository */
+    private $productRepository;
+
+    /** @var SerializerInterface */
+    private $serializer;
+
+    public function __construct(ProductRepository $productRepository, SerializerInterface $serializer)
+    {
+        $this->productRepository = $productRepository;
+        $this->serializer = $serializer;
+    }
 
     public function getProduct(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $product = $entityManager->find(Product::class, $request->attributes->getInt('id'));
+        $product = $this->productRepository->find($request->attributes->getInt('id'));
 
         if (null === $product) {
             throw new NotFoundHttpException(sprintf('Product with id %d not found', $request->attributes->getInt('id')));
         }
 
-        $serializer = $this->get('serializer');
-        return JsonResponse::fromJsonString($serializer->serialize($product, 'json'));
+        return JsonResponse::fromJsonString($this->serializer->serialize($product, 'json'));
     }
 
     public function getProducts(Request $request)
     {
         $page = $request->query->getInt('page', 1);
-        $entityManager = $this->container->get('doctrine');
-        /** @var ProductRepository $productRepository */
-        $productRepository = $entityManager->getRepository(Product::class);
-        $productsPaginator = $productRepository->createPaginatorForDisplayableProducts(
+
+        $productsPaginator = $this->productRepository->createPaginatorForDisplayableProducts(
             ($page - 1) * self::PRODUCTS_PER_PAGE,
             self::PRODUCTS_PER_PAGE
         );
-        $serializer = $this->get('serializer');
-        $response = JsonResponse::fromJsonString($serializer->serialize(iterator_to_array($productsPaginator), 'json'));
+
+        $response = JsonResponse::fromJsonString($this->serializer->serialize(iterator_to_array($productsPaginator), 'json'));
         $response->headers->set('X-TOTAL-COUNT', count($productsPaginator));
         return $response;
     }
