@@ -40,4 +40,4 @@ final class ProductUpdateSubscriber implements EventSubscriberInterface
     //{
     //    dump($event);
     //}
-} 
+}

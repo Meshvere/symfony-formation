@@ -1,7 +1,22 @@
 security:
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        in_memory:
+            memory:
+                users:
+                    api:
+                        password: $2y$12$2Biac/goRps2JTja4tgTL.N5eaUwUgruFGXCFI6T2pd3oO/h4i7da
+                        roles:
+                            - 'ROLE_API'
+                    editor:
+                        password: $2y$12$04XbdTspP3DEVUmluETYLuJZ5M6lhK6YTAKhx8021J8wCXz22crmy
+                        roles:
+                            - 'ROLE_EDITOR'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -11,6 +26,8 @@ security:
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
+            http_basic:
+                realm: "Partie sécurisée"
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
@@ -18,5 +35,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/produit/[0-9]+, roles: ROLE_EDITOR }
+         - { path: ^/produit/[0-9]+, roles: ROLE_EDITOR }
+         - { path: ^/api, roles: ROLE_API }
