@@ -48,7 +48,7 @@ class Product
     private $enable = true;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TaxRate")
+     * @ORM\ManyToOne(targetEntity="App\Entity\TaxRate", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, name="tax_rate", referencedColumnName="id")
      */
     private $taxRate;

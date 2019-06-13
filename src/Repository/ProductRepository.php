@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -66,5 +67,17 @@ class ProductRepository extends ServiceEntityRepository
     public function countDisplayable()
     {
         return $this->count(['deletedAt'=>null, 'enable'=>true]);
+    }
+
+    public function createPaginatorForDisplayableProducts(int $offset, int $limit): Paginator
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->andWhere('p.enable = :enable')
+            ->andWhere('p.deletedAt IS NULL')
+            ->setParameter('enable', true)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+        ;
+        return  new Paginator($queryBuilder->getQuery());
     }
 }

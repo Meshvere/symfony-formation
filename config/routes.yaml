@@ -40,3 +40,13 @@ product_edit:
   methods: [GET,PATCH]
   controller: App\Controller\ProductTypeController:edit
   host: 127.0.0.1
+api_get_product:
+  path: /api/produit/{id}
+  methods: [GET]
+  controller: App\Controller\ApiController:getProduct
+  host: 127.0.0.1
+api_get_products:
+  path: /api/produit/
+  methods: [GET]
+  controller: App\Controller\ApiController:getProducts
+  host: 127.0.0.1
