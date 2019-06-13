@@ -1,0 +1,17 @@
+App\Entity\Product:
+  properties:
+    slug:
+      - NotBlank: ~
+      - Regex: '/^[a-z0-9\-]+$/'
+App\Entity\TaxRate:
+  properties:
+    label:
+      - Regex: '/^Taux/'
+    rate:
+      - NotBlank: ~
+      - Range:
+          min: 0
+          max: 0.3
+          minMessage: On ne peut pas avoir une taxe de moins de 0%
+          maxMessage: On ne peut pas avoir une taxe de plus de 30%
+          groups: safe

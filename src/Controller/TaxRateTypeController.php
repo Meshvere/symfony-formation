@@ -12,7 +12,7 @@ class TaxRateTypeController extends AbstractController
 {
     public function create(Request $request)
     {
-        $form = $this->createForm(TaxRateType::class, new TaxRate());
+        $form = $this->createForm(TaxRateType::class, new TaxRate(), ['validation_groups' => ['Default', 'safe']]);
 
         if ($request->isMethod('POST') && $form->handleRequest($request) && $form->isValid()) {
             $this->getDoctrine()->getManager()->persist($form->getData());
@@ -34,7 +34,7 @@ class TaxRateTypeController extends AbstractController
             throw new NotFoundHttpException(sprintf('Tax Rate with id %d not found', $request->attributes->getInt('id')));
         }
         $form = $this->createForm(TaxRateType::class, $taxRate, [
-            'method' => 'PATCH',
+            'method' => 'PATCH'
         ]);
         if ($request->isMethod('PATCH') && $form->handleRequest($request) && $form->isValid()) {
             $this->getDoctrine()->getManager()->persist($form->getData());
