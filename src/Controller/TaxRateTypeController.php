@@ -2,14 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\TaxRate;
-use App\Form\TaxRateType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class TaxRateTypeController extends AbstractController
+class TaxRateTypeController
 {
+
     public function create(Request $request)
     {
         $form = $this->createForm(TaxRateType::class, new TaxRate(), ['validation_groups' => ['Default', 'safe']]);
@@ -28,18 +27,17 @@ class TaxRateTypeController extends AbstractController
 
     public function edit(Request $request, $id)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $taxRate = $entityManager->find(TaxRate::class, $request->attributes->getInt('id'));
-        if (null === $taxRate) {
-            throw new NotFoundHttpException(sprintf('Tax Rate with id %d not found', $request->attributes->getInt('id')));
+        $product = $this->productRepository->find($request->attributes->getInt('id'));
+        if (null === $product) {
+            throw new NotFoundHttpException(sprintf('Product with id %d not found', $request->attributes->getInt('id')));
         }
-        $form = $this->createForm(TaxRateType::class, $taxRate, [
-            'method' => 'PATCH'
+        $form = $this->formFactory->create(ProductType::class, $product, [
+            'method' => 'PATCH',
+            'context' => 'partial-edit',
         ]);
         if ($request->isMethod('PATCH') && $form->handleRequest($request) && $form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($form->getData());
-            $this->getDoctrine()->getManager()->flush();
-            $this->get('session')->getFlashBag()->add('success', 'La taxe a été modifiée');
+            $this->productRepository->add($form->getData());
+            $this->flashBag->add('success', 'Le produit a été modifié');
         }
 
         return $this->render('tax_rate_type/index.html.twig', [
